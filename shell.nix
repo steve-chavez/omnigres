@@ -4,9 +4,14 @@ with import (builtins.fetchTarball {
   sha256 = "11fpdcj5xrmmngq0z8gsc3axambqzvyqkfk23jn3qkx9a5x56xxk";
 }) {};
 mkShell {
-  buildInputs = [
-    openssl
+  nativeBuildInputs = [
+    pugixml openssl
     pkgsStatic.openssl
+    uriparser
+    h2o
+    postgresql_16
+  ];
+  buildInputs = [
     pkg-config
     cmake
     flex

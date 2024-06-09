@@ -9,7 +9,12 @@ include(CPM)
 
 enable_testing()
 
-CPMAddPackage(NAME pugixml GIT_REPOSITORY https://github.com/zeux/pugixml VERSION 1.14 OPTIONS "PUGIXML_NO_EXCEPTIONS ON")
+find_package(pugixml)
+if(NOT pugixml_FOUND)
+  CPMAddPackage(NAME pugixml GIT_REPOSITORY https://github.com/zeux/pugixml VERSION 1.14 OPTIONS "PUGIXML_NO_EXCEPTIONS ON")
+else()
+  message("pugixml was found")
+endif()
 
 find_package(PostgreSQL REQUIRED)
 

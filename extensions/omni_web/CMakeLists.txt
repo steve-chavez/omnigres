@@ -9,7 +9,16 @@ list(PREPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/../../cmake)
 enable_testing()
 
 find_package(PostgreSQL REQUIRED)
-find_package(Uriparser REQUIRED)
+
+find_package(uriparser)
+if(NOT uriparser_FOUND)
+  message("uriparser was found")
+  CPMAddPackage(NAME uriparser GIT_REPOSITORY https://github.com/uriparser/uriparser GIT_TAG uriparser-0.9.7 VERSION 0.9.7
+                OPTIONS "BUILD_SHARED_LIBS OFF" "URIPARSER_BUILD_DOCS OFF" "URIPARSER_BUILD_TESTS OFF" "URIPARSER_BUILD_TOOLS OFF"
+                        "URIPARSER_ENABLE_INSTALL OFF" "URIPARSER_WARNINGS_AS_ERRORS ON")
+else()
+  message("uriparser was found")
+endif()
 
 add_postgresql_extension(
         omni_web
